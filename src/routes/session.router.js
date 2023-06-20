@@ -6,7 +6,7 @@ const passport = require('passport')
 const { passportAuth } = require('../config/passportAuth')
 const { authorizaton } = require('../config/passportAuthorization')
 const router = Router()
-const{login, failurelogin,register,failure,logout,current,counter,privada}=require("../controllers/session.controller")
+const{login, failurelogin,register,failure,logout,current,counter,privada}= require("../controllers/session.controller")
 
 
 router.post('/login', passport.authenticate('login', {failureRedirect:'/failurelogin'}), login )   

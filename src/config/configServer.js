@@ -1,5 +1,6 @@
 const {connect} = require('mongoose')
-let url = 'mongodb+srv://aixamercapidez:loppol123321@aixamercapidez.kzlelds.mongodb.net/ecommerce?retryWrites=true&w=majority'
+require('dotenv').config()
+let url = process.env.MONGO_URL
 module.exports = {
     connectDb: ()=>{
         connect(url)

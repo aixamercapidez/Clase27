@@ -1,7 +1,8 @@
+const {CartsService} = require("../service/index")
 class CartsController{
 getCarts= async (req,res)=>{
     try {
-        const carts = await CartManager.getCarts()
+        const carts = await CartsService.getCarts()
         res.status(200).send({
             status: 'success',
             payload: carts
@@ -19,7 +20,7 @@ CreateCart= async (request, response)=>{
     try {
         
 
-        let result = await CartManager.addCart()
+        let result = await CartsService.addCart()
 
 
         res.status(200).send({
@@ -34,7 +35,7 @@ CreateCart= async (request, response)=>{
 getById= async (req,res)=>{
     try {
         const {cid} = req.params
-        let cart = await CartManager.getCartById(cid)
+        let cart = await CartsService.getCartById(cid)
         res.render('carts',{
             status: 'success',
             payload: cart,
@@ -50,7 +51,7 @@ AddProduct=async (req, res)=>{
         const {cid} = req.params
         const {pid} = req.params
         
-        const cart = await CartManager.addProduct(cid,pid)
+        const cart = await CartsService.addProduct(cid,pid)
         res.status(200).send({
             status: 'success',
             payload: cart
@@ -65,7 +66,7 @@ DeleteProduct=async (req, res)=>{
         const {cid} = req.params
         const {pid} = req.params
         
-        const cart = await CartManager.deleteProduct(cid,pid)
+        const cart = await CartsService.deleteProduct(cid,pid)
         res.status(200).send({
             status: 'success',
             payload: cart
@@ -80,7 +81,7 @@ Deletecart=async (req, res)=>{
     try{
         const {cid} = req.params
     
-        const cartdeleted = await CartManager.deleteCart(cid)
+        const cartdeleted = await CartsService.deleteCart(cid)
         res.status(200).send({
             status: 'success',
             payload: cartdeleted
@@ -94,7 +95,7 @@ UpdateCart=async (req, res)=>{
     try{
         const {cid} = req.params
         const {updatecart} = req.body
-        const cart = await CartManager.updateCart(cid,updatecart)
+        const cart = await CartsService.updateCart(cid,updatecart)
         res.status(200).send({
             status: 'success',
             payload: cart
@@ -109,7 +110,7 @@ UpdateQuantity=async (req, res)=>{
         const {cid} = req.params
         const {pid} = req.params
         const {quantity} = req.body
-        const cart = await CartManager.Updatequantity(cid,pid,quantity)
+        const cart = await CartsService.Updatequantity(cid,pid,quantity)
         res.status(200).send({
             status: 'success',
             payload: cart
@@ -122,4 +123,4 @@ UpdateQuantity=async (req, res)=>{
 
 }
 
-module.exports= new(CartsController)
+module.exports= new CartsController()

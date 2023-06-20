@@ -1,7 +1,9 @@
+const {MessageService} = require("../service/index")
+
 class MessageController{
    getMessage= async (req,res)=>{
         try {
-            const message = await messageManager.getmessage()
+            const message = await MessageService.getmessage()
             res.status(200).send({
                 status: 'success',
                 payload: message
@@ -15,7 +17,7 @@ class MessageController{
         try {
             
             const newmessage = req.body
-            let result = await messageManager.addmessage(newmessage)
+            let result = await MessageService.addmessage(newmessage)
     
     
             res.status(200).send({
@@ -29,4 +31,4 @@ class MessageController{
 
 }
 
-module.exports= new(MessageController)
+module.exports= new MessageController()

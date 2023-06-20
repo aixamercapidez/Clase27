@@ -20,4 +20,4 @@ class MessageManagerMongo {
    
 }
 
-module.exports = new MessageManagerMongo
+module.exports = MessageManagerMongo

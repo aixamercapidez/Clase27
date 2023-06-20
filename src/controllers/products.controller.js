@@ -1,3 +1,6 @@
+const {ProductsService} = require("../service/index")
+const { productModel } = require('../dao/mongo/model/product.model.js')
+
 class ProductsController{
    getProducts= async (req, res) => {
         try {
@@ -33,8 +36,8 @@ class ProductsController{
             if(status){
                 query={status:status}
             }
-            let products = await productModel.paginate(query,{ limit: limit, page: page, lean: true,sort: sortOptions})
-    
+           let products = await productModel.paginate(query,{ limit: limit, page: page, lean: true,sort: sortOptions})
+  //  let products = await ProductsService.getProducts()
             
             const { docs, hasPrevPage, hasNextPage, prevPage, nextPage, totalPages } = products
             res.render('products', {
@@ -58,7 +61,7 @@ class ProductsController{
    getById= async (req, res) => {
         try {
             const { pid } = req.params
-            let product = await productManager.getProductById(pid)
+            let product = await ProductsService.getProductById(pid)
             res.status(200).send({
                 status: 'success',
                 payload: product
@@ -72,7 +75,7 @@ class ProductsController{
         try {
             const newProduct = req.body
     
-            let result = await productManager.addProduct(newProduct)
+            let result = await ProductsService.addProduct(newProduct)
     
     
             res.status(200).send({
@@ -89,7 +92,7 @@ class ProductsController{
             const { pid } = req.params
             const updateProduct = req.body
     
-            let updated = await productManager.updateProduct(pid, updateProduct)
+            let updated = await ProductsService.updateProduct(pid, updateProduct)
     
     
             res.status(200).send({
@@ -103,7 +106,7 @@ class ProductsController{
   DeleteProduct=  async (req, res) => {
         try {
             const { pid } = req.params
-            let product = await productManager.deleteProduct(pid)
+            let product = await ProductsService.deleteProduct(pid)
             res.status(200).send({
                 status: 'success',
                 payload: product
@@ -114,4 +117,4 @@ class ProductsController{
     }
 }
 
-module.exports= new(ProductsController)
+module.exports= new ProductsController()

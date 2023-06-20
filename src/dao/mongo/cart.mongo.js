@@ -157,4 +157,4 @@ class CartManagerMongo {
 
 }
 
-module.exports = new CartManagerMongo
+module.exports = CartManagerMongo
