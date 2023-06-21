@@ -17,16 +17,19 @@ const FileStore  = require('session-file-store')
 const {create} = require('connect-mongo') 
 app.use(cookieParser('P@l@braS3cr3t0'))
 
+require('dotenv').config()
+let url = process.env.MONGO_URL
+let secret= process.env.SECRET
 app.use(session({
     store: create({
-        mongoUrl: 'mongodb+srv://aixamercapidez:loppol123321@aixamercapidez.kzlelds.mongodb.net/ecommerce?retryWrites=true&w=majority',
+        mongoUrl: url,
         mongoOptions: {
             useNewUrlParser: true,
             useUnifiedTopology: true
         },
         ttl: 1000000*6000
     }),
-    secret: 'secretCoder',
+    secret:secret,
     resave: false,
     saveUninitialized: false
 })) 
