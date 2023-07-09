@@ -59,6 +59,22 @@ DELETE http://localhost:8080/api/carts/6456caff02edaee996b31da1
 ###DELETE
 DELETE http://localhost:8080/api/carts/6456caff02edaee996b31da1/product/64600f478a5c8b883b5a71ac
 
+### POST 
+POST http://localhost:8080/api/carts/6456caff02edaee996b31da1/purchase
+
+
+
+//session
+### POST 
+POST http://localhost:8080/api/session/login
+Content-Type: application/json
+{
+    "username": "aa@gmial.com",
+    "password":"123"
+
+    
+}
+
 
 // mensajes
 ### GET 

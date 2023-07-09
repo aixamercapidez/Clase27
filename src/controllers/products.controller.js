@@ -1,5 +1,6 @@
 const {ProductsService} = require("../service/index")
 const { productModel } = require('../dao/mongo/model/product.model.js')
+const {userModel} = require('../dao/mongo/model/user.model')
 
 class ProductsController{
    getProducts= async (req, res) => {
@@ -10,8 +11,9 @@ class ProductsController{
             const {first_name} = req.session.user
             const {last_name} = req.session.user
             const {email} = req.session.user
-           
-            const {role} = req.session.user
+            let userDB = await userModel.findOne({email})
+            let role = userDB.role
+            //const {role} = req.session.user
             
             
             const { page = 1 } = req.query
@@ -40,6 +42,12 @@ class ProductsController{
   //  let products = await ProductsService.getProducts()
             
             const { docs, hasPrevPage, hasNextPage, prevPage, nextPage, totalPages } = products
+          
+            
+        
+
+
+
             res.render('products', {
                 status: 'success',
                 products: docs,
@@ -76,12 +84,19 @@ class ProductsController{
             const newProduct = req.body
     
             let result = await ProductsService.addProduct(newProduct)
-    
-    
+            const {email} = req.session.user
+            let userDB = await userModel.findOne({email})
+            let role = userDB.role
+    if (role != "admin"){
+        res.status(401).send({
+            status: 'acces denied',
+            
+        })
+    }else{
             res.status(200).send({
                 status: 'success',
                 payload: result
-            })
+            })}
         } catch (error) {
             console.log(error)
         }
@@ -93,12 +108,20 @@ class ProductsController{
             const updateProduct = req.body
     
             let updated = await ProductsService.updateProduct(pid, updateProduct)
-    
+            const {email} = req.session.user
+            let userDB = await userModel.findOne({email})
+            let role = userDB.role
+    if (role != "admin"){
+        res.status(401).send({
+            status: 'acces denied',
+            
+        })
+    }else{
     
             res.status(200).send({
                 status: 'success',
                 payload: updated
-            })
+            })}
         } catch (error) {
             console.log(error)
         }
@@ -107,10 +130,20 @@ class ProductsController{
         try {
             const { pid } = req.params
             let product = await ProductsService.deleteProduct(pid)
+
+            const {email} = req.session.user
+            let userDB = await userModel.findOne({email})
+            let role = userDB.role
+    if (role != "admin"){
+        res.status(401).send({
+            status: 'acces denied',
+            
+        })
+    }else{
             res.status(200).send({
                 status: 'success',
                 payload: product
-            })
+            })}
         } catch (error) {
             console.log(error)
         }

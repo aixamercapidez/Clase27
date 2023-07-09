@@ -19,11 +19,19 @@ class MessageController{
             const newmessage = req.body
             let result = await MessageService.addmessage(newmessage)
     
-    
+            const {email} = req.session.user
+            let userDB = await userModel.findOne({email})
+            let role = userDB.role
+    if (role != "user"){
+        res.status(401).send({
+            status: 'acces denied',
+            
+        })
+    }else{
             res.status(200).send({
                 status: 'success',
                 payload: result
-            })
+            })}
         } catch (error) {
             console.log(error)
         }
