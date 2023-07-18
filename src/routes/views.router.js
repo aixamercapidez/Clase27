@@ -18,7 +18,7 @@ router.get('/chat', (req, res)=>{
 
 router.get('/', (req, res)=>{
 
-    let user = users[Math.floor( Math.random() * users.length )]
+    let user = user[Math.floor( Math.random() * user.length )]
 
     let testUser = {
         title: 'Mercadito Fede',

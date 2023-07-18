@@ -18,7 +18,10 @@ const userSchema = new Schema ({
     date_of_birth:{ Date},
     role:String,
    password:String,
-  
+   cartID: {
+    type: Schema.Types.ObjectId,
+    ref: 'carts'
+}
 
 })
 
